@@ -1,5 +1,6 @@
 package com.example.apiproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -23,5 +24,6 @@ public class FacilityType {
     private String name;
 
     @OneToMany(mappedBy = "facilityType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<SportsFacility> facilities = new ArrayList<>();
 }
