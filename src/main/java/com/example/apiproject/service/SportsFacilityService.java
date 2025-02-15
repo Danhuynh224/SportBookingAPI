@@ -16,7 +16,7 @@ public class SportsFacilityService {
     private SportsFacilityRepository sportsFacilityRepository;
 
     // Lấy danh sách các sân được xây dựng thêm các đây 7 ngày
-    public List<SportsFacility> findAllRencentFacility() {
+    public List<SportsFacility> findAllRecentFacility() {
         LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
         return sportsFacilityRepository.findAll().stream().
                 filter(e->e.getCreatedAt().isAfter(sevenDaysAgo.atStartOfDay()) || e.getCreatedAt().isEqual(sevenDaysAgo.atStartOfDay()))
@@ -24,9 +24,8 @@ public class SportsFacilityService {
     }
 
     // Lấy danh sách 10 sân được đặt nhiều nhất
-    public List<SportsFacility> findAllByOrderByBookingDes10() {
+    public List<SportsFacility> findAllByOrderByBookingDesc10() {
         return sportsFacilityRepository.findAllByOrderByBookingDes10();
     }
-
 
 }
