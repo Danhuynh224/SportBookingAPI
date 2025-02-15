@@ -3,9 +3,10 @@ package com.example.apiproject.entity;
 import com.example.apiproject.enums.FacilityStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class SportsFacility {
-    @jakarta.persistence.Id
     @Id
     private String name;
 
@@ -37,5 +37,7 @@ public class SportsFacility {
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
-
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt; // Thời gian tạo sân
 }

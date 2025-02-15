@@ -42,7 +42,7 @@ public class Booking {
     private BigDecimal totalPrice;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PayMent payment;
+    private Payment payment;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

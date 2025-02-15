@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class PayMent {
+public class Payment {
     @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,4 +40,6 @@ public class PayMent {
     @Column(nullable = false)
     private PaymentStatus status = PaymentStatus.PENDING;
 
+    @Column(name = "payment_date", nullable = false)
+    private LocalDate paymentDate;
 }
