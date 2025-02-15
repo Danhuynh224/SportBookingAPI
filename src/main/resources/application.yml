@@ -21,3 +21,12 @@ spring:
           auth: true
           starttls:
             enable: true
+  springdoc:
+    api-docs:
+      enabled: true  # Bật API Docs (http://localhost:8080/v3/api-docs)
+    swagger-ui:
+      enabled: true  # Bật Swagger UI (http://localhost:8080/swagger-ui.html)
+      path: /swagger-ui.html  # Định nghĩa đường dẫn Swagger UI
+      operations-sorter: method  # Sắp xếp API theo thứ tự method
+      tags-sorter: alpha  # Sắp xếp tags theo bảng chữ cái
+      doc-expansion: none  # Mặc định thu gọn API
