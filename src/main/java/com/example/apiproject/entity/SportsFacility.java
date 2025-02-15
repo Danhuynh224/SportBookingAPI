@@ -1,6 +1,7 @@
 package com.example.apiproject.entity;
 
 import com.example.apiproject.enums.FacilityStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,9 +32,11 @@ public class SportsFacility {
     @Column(nullable = false)
     private FacilityStatus status = FacilityStatus.AVAILABLE;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
