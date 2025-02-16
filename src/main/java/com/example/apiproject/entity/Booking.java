@@ -1,6 +1,7 @@
 package com.example.apiproject.entity;
 
 import com.example.apiproject.enums.BookingStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -41,6 +42,7 @@ public class Booking {
     @Column(nullable = false)
     private BigDecimal totalPrice;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private Payment payment;
 
