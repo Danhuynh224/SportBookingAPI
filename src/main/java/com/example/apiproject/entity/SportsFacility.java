@@ -43,4 +43,9 @@ public class SportsFacility {
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt; // Thời gian tạo sân
+
+    private String address;
+    private double latitude;
+    private double longitude;
+    private String img;
 }
