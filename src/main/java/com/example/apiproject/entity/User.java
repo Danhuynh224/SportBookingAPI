@@ -1,11 +1,12 @@
 package com.example.apiproject.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import com.example.apiproject.enums.Role;
+import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -13,22 +14,25 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     @Column(nullable = false, length = 100)
-    private String fullName;
+    String fullName;
 
     @Column(nullable = false, unique = true, length = 100)
-    private String email;
+    String email;
 
     @Column(nullable = false, unique = true, length = 15)
-    private String phone;
+    String phone;
 
     @Column(nullable = false)
-    private String passwordHash;
+    String passwordHash;
 
+    @Enumerated(EnumType.STRING)
+    Set<Role> roles;
 }
