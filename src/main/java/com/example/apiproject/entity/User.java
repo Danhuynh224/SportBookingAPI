@@ -34,5 +34,5 @@ public class User {
     String passwordHash;
 
     @Enumerated(EnumType.STRING)
-    Set<Role> roles;
+    Role role;
 }

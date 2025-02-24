@@ -19,18 +19,22 @@ import java.util.List;
 @ToString
 public class SportsFacility {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "facility_type_id", nullable = false)
-    private FacilityType facilityType;
-
     @Column(nullable = false)
-    private BigDecimal pricePerHour;
+    private String address;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private FacilityStatus status = FacilityStatus.AVAILABLE;
+    private double latitude;
+    private double longitude;
+    private String img;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "sportsFacility", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SubFacility> subFacilities = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -42,10 +46,5 @@ public class SportsFacility {
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt; // Thời gian tạo sân
-
-    private String address;
-    private double latitude;
-    private double longitude;
-    private String img;
+    private LocalDateTime createdAt;
 }

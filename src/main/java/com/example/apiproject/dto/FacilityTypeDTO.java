@@ -2,6 +2,7 @@ package com.example.apiproject.dto;
 
 import com.example.apiproject.entity.FacilityType;
 import com.example.apiproject.entity.SportsFacility;
+import com.example.apiproject.entity.SubFacility;
 import lombok.*;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class FacilityTypeDTO {
         return new FacilityTypeDTO(
                 facilityType.getId(),
                 facilityType.getName(),
-                facilityType.getFacilities().stream()
-                        .map(SportsFacility::getName) // Lấy tên sân
+                facilityType.getSubFacilities().stream()
+                        .map(SubFacility::getName) // Lấy tên sân
                         .collect(Collectors.toList())
         );
     }

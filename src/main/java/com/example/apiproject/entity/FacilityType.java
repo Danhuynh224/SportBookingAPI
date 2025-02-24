@@ -25,5 +25,5 @@ public class FacilityType {
 
     @OneToMany(mappedBy = "facilityType", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private List<SportsFacility> facilities = new ArrayList<>();
+    private List<SubFacility> subFacilities = new ArrayList<>();
 }
