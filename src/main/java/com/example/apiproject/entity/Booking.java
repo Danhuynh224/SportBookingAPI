@@ -27,8 +27,8 @@ public class Booking {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "facility_id", nullable = false)
-    private SportsFacility facility;
+    @JoinColumn(name = "subfacility_id", nullable = false)
+    private SubFacility subFacility;
 
     @Column(nullable = false)
     private LocalDate bookingDate;

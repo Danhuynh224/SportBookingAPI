@@ -38,7 +38,4 @@ public class SubFacility {
     @Column(nullable = false)
     private FacilityStatus status = FacilityStatus.AVAILABLE;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "subFacility", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TimeSlot> timeSlots = new ArrayList<>();
 }
