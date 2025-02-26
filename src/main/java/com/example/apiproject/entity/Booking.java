@@ -27,7 +27,7 @@ public class Booking {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "subfacility_id", nullable = false)
+    @JoinColumn(name = "sub_facility_id", nullable = false)
     private SubFacility subFacility;
 
     @Column(nullable = false)

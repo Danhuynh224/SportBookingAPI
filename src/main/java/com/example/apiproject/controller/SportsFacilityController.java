@@ -41,12 +41,12 @@ public class SportsFacilityController {
     }
 
     // API lấy ra 10 sân được booking nhiều nhất
-    @GetMapping("/top10")
-    public ResponseEntity<List<SportsFacility>> getTop10Facility() {
-        List<SportsFacility> facilities = sportsFacilityService.findAllByOrderByBookingDesc10();
-        if (facilities.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(facilities);
-    }
+//    @GetMapping("/top10")
+//    public ResponseEntity<List<SportsFacility>> getTop10Facility() {
+//        List<SportsFacility> facilities = sportsFacilityService.findAllByOrderByBookingDesc10();
+//        if (facilities.isEmpty()) {
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.ok(facilities);
+//    }
 }

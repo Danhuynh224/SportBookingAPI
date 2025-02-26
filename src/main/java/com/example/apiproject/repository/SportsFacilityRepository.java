@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface SportsFacilityRepository extends JpaRepository<SportsFacility, String> {
 
-    @Query("SELECT b.facility FROM Booking b WHERE b.status='CONFIRMED' GROUP BY b.facility order by COUNT(b) DESC LIMIT 10")
-    List<SportsFacility> findAllByOrderByBookingDes10();
+//    @Query("SELECT b.facility FROM Booking b WHERE b.status='CONFIRMED' GROUP BY b.facility order by COUNT(b) DESC LIMIT 10")
+//    List<SportsFacility> findAllByOrderByBookingDes10();
 }

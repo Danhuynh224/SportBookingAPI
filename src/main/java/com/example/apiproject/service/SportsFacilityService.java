@@ -29,9 +29,9 @@ public class SportsFacilityService {
     }
 
     // Lấy danh sách 10 sân được đặt nhiều nhất
-    public List<SportsFacility> findAllByOrderByBookingDesc10() {
-        return sportsFacilityRepository.findAllByOrderByBookingDes10();
-    }
+//    public List<SportsFacility> findAllByOrderByBookingDesc10() {
+//        return sportsFacilityRepository.findAllByOrderByBookingDes10();
+//    }
 
     // Cập nhật hoặc thêm mới một sân thể thao
     public SportsFacility saveOrUpdateSportsFacility(SportsFacility facility) {
