@@ -19,7 +19,7 @@ public class Payment {
     @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long paymentId;
 
     @OneToOne
     @JoinColumn(name = "booking_id", nullable = false)

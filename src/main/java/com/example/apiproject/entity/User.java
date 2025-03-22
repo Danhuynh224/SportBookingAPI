@@ -20,7 +20,7 @@ public class User {
     @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Long userId;
     @Column(nullable = false, length = 100)
     String fullName;
 

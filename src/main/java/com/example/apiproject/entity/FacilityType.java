@@ -18,7 +18,7 @@ public class FacilityType {
     @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long facilityTypeId;
 
     @Column(nullable = false, unique = true, length = 50)
     private String name;

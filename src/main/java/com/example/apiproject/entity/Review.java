@@ -13,7 +13,7 @@ public class Review {
     @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long reviewId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

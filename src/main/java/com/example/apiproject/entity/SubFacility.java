@@ -19,7 +19,7 @@ import java.util.List;
 public class SubFacility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long subFacilityId;
 
     @Column(nullable = false)
     private String name;

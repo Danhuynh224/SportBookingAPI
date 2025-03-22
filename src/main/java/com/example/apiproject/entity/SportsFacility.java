@@ -20,7 +20,7 @@ import java.util.List;
 public class SportsFacility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long sportsFacilityId;
 
     @Column(nullable = false, unique = true)
     private String name;

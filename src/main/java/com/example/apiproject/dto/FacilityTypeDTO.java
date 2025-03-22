@@ -19,7 +19,7 @@ public class FacilityTypeDTO {
 
     public static FacilityTypeDTO fromEntity(FacilityType facilityType) {
         return new FacilityTypeDTO(
-                facilityType.getId(),
+                facilityType.getFacilityTypeId(),
                 facilityType.getName(),
                 facilityType.getSubFacilities().stream()
                         .map(SubFacility::getName) // Lấy tên sân
