@@ -43,4 +43,5 @@ public class SubFacility {
     @Column(nullable = false)
     private FacilityStatus status = FacilityStatus.AVAILABLE;
 
+
 }

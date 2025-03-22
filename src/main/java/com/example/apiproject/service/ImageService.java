@@ -4,10 +4,12 @@ import com.example.apiproject.entity.SportsFacility;
 import com.example.apiproject.repository.SportsFacilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.*;
 
 
@@ -31,6 +33,18 @@ public class ImageService {
         return imageUrl;
     }
 
-//    public Resource getImage(String id) {
-//    }
+    public Resource getImage(Long id) throws IOException {
+        SportsFacility sportsFacility = sportsFacilityRepository.findBySportsFacilityId(id);
+        String fileName = sportsFacility.getImg();
+        Path filePath = Paths.get(UPLOAD_DIR).resolve(fileName);
+        Resource resource = new UrlResource(filePath.toUri());
+
+        if (resource.exists() || resource.isReadable()) {
+            System.out.println(filePath.toString());
+            return resource;
+        } else {
+            throw new IOException("Image not found: " + fileName);
+        }
+    }
+
 }

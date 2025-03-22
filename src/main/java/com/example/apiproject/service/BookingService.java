@@ -35,8 +35,7 @@ public class BookingService {
     public Booking addBooking(BookingRequestDTO request) {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        SubFacility facility = subFacilityRepository.findById(request.getFacilityId())
-                .orElseThrow(() -> new RuntimeException("Facility not found"));
+        SubFacility facility = subFacilityRepository.findBySubFacilityId(request.getFacilityId());
 
         Booking booking = new Booking();
         booking.setUser(user);

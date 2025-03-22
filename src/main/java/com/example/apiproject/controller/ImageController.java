@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -31,11 +32,14 @@ public class ImageController {
             return ResponseEntity.internalServerError().body("Upload failed!");
         }
     }
-//    @GetMapping()
-//    public ResponseEntity<Resource> getImage(@PathVariable("id") String id) {
-//        Resource resource = imageService.getImage(id);
-//        if (resource != null) {return ResponseEntity.ok(resource);}
-//        else return ResponseEntity.notFound().build();
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity<Resource> getImage(@PathVariable("id") Long id) throws IOException {
+        Resource resource = imageService.getImage(id);
+        if (resource != null) { String contentType = "image/png"; // hoặc "image/jpeg" tùy loại ảnh
+            return ResponseEntity.ok()
+                    .header("Content-Type", contentType)
+                    .body(resource);}
+        else return ResponseEntity.notFound().build();
+    }
 
 }
