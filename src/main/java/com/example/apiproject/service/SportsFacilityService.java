@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -38,4 +38,14 @@ public class SportsFacilityService {
         return sportsFacilityRepository.save(facility);
     }
 
+    public List<SportsFacility> searchFacilities(String keyword) {
+        Set<SportsFacility> uniqueFacilities = new HashSet<>();
+        uniqueFacilities.addAll(sportsFacilityRepository.findByNameContainingIgnoreCase(keyword));
+        uniqueFacilities.addAll(sportsFacilityRepository.findByAddressContainingIgnoreCase(keyword));
+
+        if (uniqueFacilities.isEmpty()) {
+            throw new RuntimeException("No facilities found");
+        }
+        return new ArrayList<>(uniqueFacilities);
+    }
 }

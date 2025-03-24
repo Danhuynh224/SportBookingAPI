@@ -4,6 +4,7 @@ import com.example.apiproject.entity.SportsFacility;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,6 +14,7 @@ public interface SportsFacilityRepository extends JpaRepository<SportsFacility, 
 //    List<SportsFacility> findAllByOrderByBookingDes10();
     SportsFacility findBySportsFacilityId(Long sportsFacilityId);
     SportsFacility findByName(String name);
-
+    List<SportsFacility> findByNameContainingIgnoreCase(String name);
+    List<SportsFacility> findByAddressContainingIgnoreCase(String address);
 
 }
