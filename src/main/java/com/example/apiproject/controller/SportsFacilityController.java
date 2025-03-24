@@ -3,18 +3,18 @@ package com.example.apiproject.controller;
 import com.example.apiproject.entity.SportsFacility;
 import com.example.apiproject.service.SportsFacilityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/sportsfacilities")
 public class SportsFacilityController {
     @Autowired
     private SportsFacilityService sportsFacilityService;
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save")
     public ResponseEntity<SportsFacility> save(@RequestBody SportsFacility sportsFacility) {
         SportsFacility savedFacility = sportsFacilityService.saveOrUpdateSportsFacility(sportsFacility);
         return ResponseEntity.ok(savedFacility);

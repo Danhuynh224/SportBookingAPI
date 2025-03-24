@@ -12,6 +12,7 @@ public interface SportsFacilityRepository extends JpaRepository<SportsFacility, 
 //    @Query("SELECT b.facility FROM Booking b WHERE b.status='CONFIRMED' GROUP BY b.facility order by COUNT(b) DESC LIMIT 10")
 //    List<SportsFacility> findAllByOrderByBookingDes10();
     SportsFacility findBySportsFacilityId(Long sportsFacilityId);
+    SportsFacility findByName(String name);
 
 
 }
