@@ -1,10 +1,10 @@
 package com.example.apiproject.entity;
 
+import com.example.apiproject.enums.TimeRange;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -17,18 +17,16 @@ public class TimeSlot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long timeSlotId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private LocalTime startTime;
+    private TimeRange timeRange;
 
     @Column(nullable = false)
-    private LocalTime endTime;
-
-    @Column(nullable = false)
-    private BigDecimal pricePerHour;
+    private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "sports_facility_id", nullable = false)
-    private SportsFacility sportsFacility;
+    @JoinColumn(name = "sub_facility_id", nullable = false)
+    private SubFacility subFacility;
 
     @ManyToOne
     @JoinColumn(name = "facility_type_id", nullable = false)
