@@ -36,9 +36,6 @@ public class SubFacility {
     @OneToMany(mappedBy = "subFacility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings = new ArrayList<>();
 
-    @Column(nullable = false)
-    private BigDecimal pricePerHour;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FacilityStatus status = FacilityStatus.AVAILABLE;
