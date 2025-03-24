@@ -21,13 +21,13 @@ public class ImageService {
 
     private static final String UPLOAD_DIR = "src/main/resources/static/images/";
 
-    public String uploadImage(Long id, byte[] bytes, String fileName) throws IOException {
+    public String uploadImage(String name, byte[] bytes, String fileName) throws IOException {
         Path filePath = Paths.get(UPLOAD_DIR + fileName);
         Files.createDirectories(filePath.getParent());
         Files.write(filePath, bytes, StandardOpenOption.CREATE);
 
         String imageUrl = "http://localhost:8080/images/" + fileName;
-        SportsFacility sportsFacility = sportsFacilityRepository.findBySportsFacilityId(id);
+        SportsFacility sportsFacility = sportsFacilityRepository.findByName(name);
         sportsFacility.setImg(fileName);
         sportsFacilityRepository.save(sportsFacility);
         return imageUrl;

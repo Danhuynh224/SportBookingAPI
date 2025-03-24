@@ -21,11 +21,11 @@ public class ImageController {
 
     //Upload
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) {
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("name") String name) {
         try {
             // Tạo tên file duy nhất để tránh trùng lặp
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            String imageUrl = imageService.uploadImage(id, file.getBytes(), fileName);
+            String imageUrl = imageService.uploadImage(name, file.getBytes(), fileName);
             return ResponseEntity.ok(imageUrl);
 
         } catch (IOException e) {
