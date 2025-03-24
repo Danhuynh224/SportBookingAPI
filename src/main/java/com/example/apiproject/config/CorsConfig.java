@@ -12,7 +12,7 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
+                registry.addMapping("/**").allowedOrigins("*"); //Cho phép tất cả các nguồn (origin) có thể truy cập vào API, không giới hạn tên miền nào.
             }
         };
     }
