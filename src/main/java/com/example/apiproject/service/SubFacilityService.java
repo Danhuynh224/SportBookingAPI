@@ -15,4 +15,8 @@ public class SubFacilityService {
     public List<SubFacility> getAllSportsFacility() {
         return subFacilityRepository.findAll();
     }
+
+    public SubFacility saveOrUpdateSubFacility(SubFacility subFacility) {
+        return subFacilityRepository.save(subFacility);
+    }
 }
