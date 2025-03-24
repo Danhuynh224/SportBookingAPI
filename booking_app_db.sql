@@ -155,7 +155,7 @@ CREATE TABLE `sports_facility` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`sports_facility_id`),
   UNIQUE KEY `UKarrw3pocsyvgqa100yex2adcw` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `sports_facility` (
 
 LOCK TABLES `sports_facility` WRITE;
 /*!40000 ALTER TABLE `sports_facility` DISABLE KEYS */;
-INSERT INTO `sports_facility` VALUES (1,'HCM, 1110 Phạm Văn Đồng P.Linh Đông Tp, Thủ Đức, Hồ Chí Minh 70000, Việt Nam','2025-02-25 10:00:00.000000','image1.jpg',10.84841524925496,106.74130928229619,'Tennis Cây Lộc Vừng'),(2,'158 Đ. số 17, Phường Linh Trung, Thủ Đức, Hồ Chí Minh 71308, Việt Nam','2025-02-25 11:00:00.000000','image2.jpg',10.864870010122146,106.78818257940658,'Sân cầu lông Aurora Sport'),(3,'10 Đ. Số 3, Phước Long A, Thủ Đức, Hồ Chí Minh, Việt Nam','2025-02-25 12:00:00.000000','image3.jpg',10.835224103049228,106.76414735242275,'Galaxy badminton'),(4,'40 Đ. Số 11, Trường Thọ, Thủ Đức, Hồ Chí Minh, Việt Nam','2025-02-25 12:00:00.000000','image4.jpg',10.8448260987901,106.75305479475074,'Sân cầu lông B-ZONE 11'),(5,'1 Đ. Võ Văn Ngân, Linh Chiểu, Thủ Đức, Hồ Chí Minh, Việt Nam','2025-02-25 12:00:00.000000','image5.jpg',10.850662559501243,106.77313336962,'Sân bóng ĐH SPKT TP HCM');
+INSERT INTO `sports_facility` VALUES (1,'HCM, 1110 Phạm Văn Đồng P.Linh Đông Tp, Thủ Đức, Hồ Chí Minh 70000, Việt Nam','2025-02-25 10:00:00.000000','1742649804675_2019-03-24.jpg',10.84841524925496,106.74130928229619,'Tennis Cây Lộc Vừng'),(2,'158 Đ. số 17, Phường Linh Trung, Thủ Đức, Hồ Chí Minh 71308, Việt Nam','2025-02-25 11:00:00.000000','1742629916736_2023-09-24.jpg',10.864870010122146,106.78818257940658,'Sân cầu lông Aurora Sport'),(3,'10 Đ. Số 3, Phước Long A, Thủ Đức, Hồ Chí Minh, Việt Nam','2025-02-25 12:00:00.000000','1742629938268_2024-05-02.jpg',10.835224103049228,106.76414735242275,'Galaxy badminton'),(4,'40 Đ. Số 11, Trường Thọ, Thủ Đức, Hồ Chí Minh, Việt Nam','2025-02-25 12:00:00.000000','1742629962983_2024-08-07.jpg',10.8448260987901,106.75305479475074,'Sân cầu lông B-ZONE 11'),(5,'1 Đ. Võ Văn Ngân, Linh Chiểu, Thủ Đức, Hồ Chí Minh, Việt Nam','2025-02-25 12:00:00.000000','1742629982790_2019-03-24.jpg',10.850662559501243,106.77313336962,'Sân bóng ĐH SPKT TP HCM'),(6,'127 Lê Văn Chí, Phường Linh Trung, Thủ Đức, Hồ Chí Minh 700000, Việt Nam','2025-03-22 21:53:04.409332','1742655184429_2024-01-12.jpg',10.86038480159787,106.77723479562422,'Sân Cầu Lông SHB Badminton');
 /*!40000 ALTER TABLE `sports_facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-24 12:53:33
+-- Dump completed on 2025-03-24 13:24:34
