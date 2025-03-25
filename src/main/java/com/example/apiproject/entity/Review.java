@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Review {
     @jakarta.persistence.Id
     @Id

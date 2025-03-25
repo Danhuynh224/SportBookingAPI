@@ -40,6 +40,15 @@ public class SportsFacilityController {
         return ResponseEntity.ok(facilities); // Trả về danh sách với status 200 OK
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<SportsFacility>> searchFacilities(@RequestParam String keyword) {
+        List<SportsFacility> facilities = sportsFacilityService.searchFacilities(keyword);
+        if (facilities.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(facilities);
+    }
+
     // API lấy ra 10 sân được booking nhiều nhất
 //    @GetMapping("/top10")
 //    public ResponseEntity<List<SportsFacility>> getTop10Facility() {
