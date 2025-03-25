@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +38,7 @@ public class SubFacility {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FacilityStatus status = FacilityStatus.AVAILABLE;
+
 
 
 }
