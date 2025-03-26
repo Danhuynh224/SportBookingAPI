@@ -31,6 +31,10 @@ public class SportsFacility {
     private double latitude;
     private double longitude;
     private String img;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String detail="";
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "sportsFacility", cascade = CascadeType.ALL, orphanRemoval = true)
