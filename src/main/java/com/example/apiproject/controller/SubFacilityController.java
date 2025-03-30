@@ -18,7 +18,7 @@ public class SubFacilityController {
     SubFacilityService subFacilityService;
 
 
-    @GetMapping()
+    @GetMapping(params = "faId")
     public ResponseEntity<List<SubFacilityDTO>> getSubFacilitiesByFaID(@RequestParam("faId") Long faID) {
         List<SubFacilityDTO> subFacilities = subFacilityService.getSubFacilitiesByFaID(faID);
         if (subFacilities.isEmpty()) {
