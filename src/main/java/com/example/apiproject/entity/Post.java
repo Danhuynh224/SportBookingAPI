@@ -31,8 +31,4 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "sports_facility_id", nullable = false)
     private SportsFacility sportsFacility; // Thuộc một khu thể thao
-
-
-
-
 }
