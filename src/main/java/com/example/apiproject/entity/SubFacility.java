@@ -31,6 +31,7 @@ public class SubFacility {
     @JoinColumn(name = "facility_type_id", nullable = false)
     private FacilityType facilityType; // Thuộc loại sân nào (Cầu lông, Tennis, ...)
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "subFacility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings = new ArrayList<>();

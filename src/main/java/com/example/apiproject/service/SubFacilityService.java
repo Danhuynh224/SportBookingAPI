@@ -38,7 +38,7 @@ public class SubFacilityService {
     }
 
     public List<SubFacilityDTO> getSubFacilitiesByFaID(Long faID) {
-        List<SubFacility> subFacilities = subFacilityRepository.findSubFacilitiesBySportsFacilitySportsFacilityId(faID);
+        List<SubFacility> subFacilities = subFacilityRepository.findSubFacilitiesBySportsFacility_SportsFacilityId(faID);
         List<SubFacilityDTO> subFacilityDTOs = new ArrayList<>();
         int size = subFacilities.size();
         SubFacility subFacility;
