@@ -26,7 +26,7 @@ public class SubFacilityService {
             subFacilityDTO.setSubFacilityId(subFacility.getSubFacilityId());
             subFacilityDTO.setName(subFacility.getName());
             subFacilityDTO.setFacilityId(subFacility.getSportsFacility().getSportsFacilityId());
-            subFacilityDTO.setStatus(subFacility.getStatus());
+//            subFacilityDTO.setStatus(subFacility.getStatus());
             subFacilityDTO.setFacilityType(subFacility.getFacilityType());
             subFacilityDTOs.add(subFacilityDTO);
         }
@@ -38,7 +38,7 @@ public class SubFacilityService {
     }
 
     public List<SubFacilityDTO> getSubFacilitiesByFaID(Long faID) {
-        List<SubFacility> subFacilities = subFacilityRepository.findSubFacilitiesBySportsFacility_SportsFacilityId(faID);
+        List<SubFacility> subFacilities = subFacilityRepository.findSubFacilitiesBySportsFacilitySportsFacilityId(faID);
         List<SubFacilityDTO> subFacilityDTOs = new ArrayList<>();
         int size = subFacilities.size();
         SubFacility subFacility;
@@ -49,7 +49,7 @@ public class SubFacilityService {
             subFacilityDTO.setSubFacilityId(subFacility.getSubFacilityId());
             subFacilityDTO.setName(subFacility.getName());
             subFacilityDTO.setFacilityId(subFacility.getSportsFacility().getSportsFacilityId());
-            subFacilityDTO.setStatus(subFacility.getStatus());
+//            subFacilityDTO.setStatus(subFacility.getStatus());
             subFacilityDTO.setFacilityType(subFacility.getFacilityType());
             subFacilityDTOs.add(subFacilityDTO);
         }

@@ -9,11 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Data
 public class FacilityType {
     @jakarta.persistence.Id
     @Id

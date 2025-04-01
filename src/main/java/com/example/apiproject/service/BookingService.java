@@ -39,31 +39,31 @@ public class BookingService {
 
         Booking booking = new Booking();
         booking.setUser(user);
-        booking.setSubFacility(facility);
+//        booking.setSubFacility(facility);
         booking.setBookingDate(request.getBookingDate());
-        booking.setStartTime(request.getStartTime());
-        booking.setEndTime(request.getEndTime());
+//        booking.setStartTime(request.getStartTime());
+//        booking.setEndTime(request.getEndTime());
         booking.setTotalPrice(request.getTotalPrice());
         booking.setStatus(BookingStatus.PENDING);
 
         return bookingRepository.save(booking);
     }
 
-    public boolean cancelBooking(Long id) {
-        Optional<Booking> bookingOpt = bookingRepository.findById(id);
-        if (bookingOpt.isPresent()) {
-            Booking booking = bookingOpt.get();
-            // Chỉ hủy trước thời gian đặt sân ít nhất 1 giờ
-            LocalDateTime bookingDateTime = booking.getBookingDate().atTime(booking.getStartTime());
-
-            if (bookingDateTime.isAfter(LocalDateTime.now().plusHours(1))) {
-                booking.setStatus(BookingStatus.CANCELLED);
-                bookingRepository.save(booking);
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean cancelBooking(Long id) {
+//        Optional<Booking> bookingOpt = bookingRepository.findById(id);
+//        if (bookingOpt.isPresent()) {
+//            Booking booking = bookingOpt.get();
+//            // Chỉ hủy trước thời gian đặt sân ít nhất 1 giờ
+//            LocalDateTime bookingDateTime = booking.getBookingDate().atTime(booking.getStartTime());
+//
+//            if (bookingDateTime.isAfter(LocalDateTime.now().plusHours(1))) {
+//                booking.setStatus(BookingStatus.CANCELLED);
+//                bookingRepository.save(booking);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public List<Booking> getBookingsByDate(LocalDate startDate, LocalDate endDate) {
         return bookingRepository.findByBookingDateBetween(startDate, endDate);

@@ -54,26 +54,26 @@ public class SportsFacilityService {
         return new ArrayList<>(uniqueFacilities);
     }
 
-    public List<SportsFacility> filterFacilities(List<String> types, List<String> addresses, BigDecimal minPrice, BigDecimal maxPrice, LocalDateTime availableTime) {
-        List<SportsFacility> filteredFacilities = sportsFacilityRepository.findAll().stream()
-                .filter(facility -> (types == null || facility.getPrices().stream().anyMatch(price -> types.contains(price.getFacilityType().getName()))))
-                .filter(facility -> (addresses == null || addresses.contains(facility.getAddress())))
-                .filter(facility -> (minPrice == null || facility.getPrices().stream().anyMatch(price -> price.getDayTime().compareTo(minPrice) >= 0)))
-                .filter(facility -> (maxPrice == null || facility.getPrices().stream().anyMatch(price -> price.getDayTime().compareTo(maxPrice) <= 0)))
-                .filter(facility -> (availableTime == null || facility.getSubFacilities().stream().anyMatch(subFacility -> isAvailableAt(subFacility, availableTime))))
-                .toList();
+//    public List<SportsFacility> filterFacilities(List<String> types, List<String> addresses, BigDecimal minPrice, BigDecimal maxPrice, LocalDateTime availableTime) {
+//        List<SportsFacility> filteredFacilities = sportsFacilityRepository.findAll().stream()
+//                .filter(facility -> (types == null || facility.getPrices().stream().anyMatch(price -> types.contains(price.getFacilityType().getName()))))
+//                .filter(facility -> (addresses == null || addresses.contains(facility.getAddress())))
+//                .filter(facility -> (minPrice == null || facility.getPrices().stream().anyMatch(price -> price.getDayTime().compareTo(minPrice) >= 0)))
+//                .filter(facility -> (maxPrice == null || facility.getPrices().stream().anyMatch(price -> price.getDayTime().compareTo(maxPrice) <= 0)))
+//                .filter(facility -> (availableTime == null || facility.getSubFacilities().stream().anyMatch(subFacility -> isAvailableAt(subFacility, availableTime))))
+//                .toList();
+//
+//        return filteredFacilities;
+//    }
 
-        return filteredFacilities;
-    }
-
-    private boolean isAvailableAt(SubFacility subFacility, LocalDateTime dateTime) {
-        LocalDate bookingDate = dateTime.toLocalDate();
-        LocalTime bookingTime = dateTime.toLocalTime();
-
-        return subFacility.getBookings().stream().noneMatch(booking ->
-                booking.getBookingDate().equals(bookingDate) &&
-                        booking.getStartTime().isBefore(bookingTime.plusSeconds(1)) &&
-                        booking.getEndTime().isAfter(bookingTime.minusSeconds(1))
-        );
-    }
+//    private boolean isAvailableAt(SubFacility subFacility, LocalDateTime dateTime) {
+//        LocalDate bookingDate = dateTime.toLocalDate();
+//        LocalTime bookingTime = dateTime.toLocalTime();
+//
+//        return subFacility.getBookings().stream().noneMatch(booking ->
+//                booking.getBookingDate().equals(bookingDate) &&
+//                        booking.getStartTime().isBefore(bookingTime.plusSeconds(1)) &&
+//                        booking.getEndTime().isAfter(bookingTime.minusSeconds(1))
+//        );
+//    }
 }

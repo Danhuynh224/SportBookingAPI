@@ -34,7 +34,7 @@ public class SubFacility {
 
     @JsonIgnore
     @OneToMany(mappedBy = "subFacility", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Booking> bookings = new ArrayList<>();
+    private List<BookingInfo> bookingInfos = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -26,6 +26,7 @@ public class SubFacilityController {
         }
         return ResponseEntity.ok(subFacilities);
     }
+    
 
     @GetMapping()
     public ResponseEntity<List<SubFacilityDTO>> getAllSubFacilities() {

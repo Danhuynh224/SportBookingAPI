@@ -52,20 +52,20 @@ public class SportsFacilityController {
         return ResponseEntity.ok(facilities);
     }
 
-    @GetMapping("/filter")
-    public ResponseEntity<List<SportsFacility>> filterSportsFacilities(
-            @RequestParam(required = false) List<String> types,
-            @RequestParam(required = false) List<String> addresses,
-            @RequestParam(required = false) BigDecimal minPrice,
-            @RequestParam(required = false) BigDecimal maxPrice,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime availableTime) {
-
-        List<SportsFacility> facilities = sportsFacilityService.filterFacilities(types, addresses, minPrice, maxPrice, availableTime);
-        if (facilities.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(facilities);
-    }
+//    @GetMapping("/filter")
+//    public ResponseEntity<List<SportsFacility>> filterSportsFacilities(
+//            @RequestParam(required = false) List<String> types,
+//            @RequestParam(required = false) List<String> addresses,
+//            @RequestParam(required = false) BigDecimal minPrice,
+//            @RequestParam(required = false) BigDecimal maxPrice,
+//            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime availableTime) {
+//
+//        List<SportsFacility> facilities = sportsFacilityService.filterFacilities(types, addresses, minPrice, maxPrice, availableTime);
+//        if (facilities.isEmpty()) {
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.ok(facilities);
+//    }
     // API lấy ra 10 sân được booking nhiều nhất
 //    @GetMapping("/top10")
 //    public ResponseEntity<List<SportsFacility>> getTop10Facility() {

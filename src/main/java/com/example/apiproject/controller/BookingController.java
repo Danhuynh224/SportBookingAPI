@@ -59,13 +59,13 @@ public class BookingController {
         return new ResponseEntity<>(booking, HttpStatus.CREATED);
     }
 
-    @PutMapping("/cancel/{id}")
-    public ResponseEntity<String> cancelBooking(@PathVariable Long id)
-    {
-        boolean isCanceled = bookingService.cancelBooking(id);
-        if (isCanceled) {
-            return ResponseEntity.ok("Đã hủy thành công.");
-        }
-        return ResponseEntity.badRequest().body("Không thể hủy. Cần hủy trước ít nhất 24 giờ!");
-    }
+//    @PutMapping("/cancel/{id}")
+//    public ResponseEntity<String> cancelBooking(@PathVariable Long id)
+//    {
+//        boolean isCanceled = bookingService.cancelBooking(id);
+//        if (isCanceled) {
+//            return ResponseEntity.ok("Đã hủy thành công.");
+//        }
+//        return ResponseEntity.badRequest().body("Không thể hủy. Cần hủy trước ít nhất 24 giờ!");
+//    }
 }
