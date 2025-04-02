@@ -26,7 +26,7 @@ public class SubFacilityService {
             subFacilityDTO.setSubFacilityId(subFacility.getSubFacilityId());
             subFacilityDTO.setName(subFacility.getName());
             subFacilityDTO.setFacilityId(subFacility.getSportsFacility().getSportsFacilityId());
-            subFacilityDTO.setStatus(subFacility.getStatus());
+//            subFacilityDTO.setStatus(subFacility.getStatus());
             subFacilityDTO.setFacilityType(subFacility.getFacilityType());
             subFacilityDTOs.add(subFacilityDTO);
         }
@@ -49,7 +49,7 @@ public class SubFacilityService {
             subFacilityDTO.setSubFacilityId(subFacility.getSubFacilityId());
             subFacilityDTO.setName(subFacility.getName());
             subFacilityDTO.setFacilityId(subFacility.getSportsFacility().getSportsFacilityId());
-            subFacilityDTO.setStatus(subFacility.getStatus());
+//            subFacilityDTO.setStatus(subFacility.getStatus());
             subFacilityDTO.setFacilityType(subFacility.getFacilityType());
             subFacilityDTOs.add(subFacilityDTO);
         }

@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,18 +27,12 @@ public class Booking {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "sub_facility_id", nullable = false)
-    private SubFacility subFacility;
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(nullable = false)
+    private List<BookingInfo> bookingInfo;
 
     @Column(nullable = false)
     private LocalDate bookingDate;
-
-    @Column(nullable = false)
-    private LocalTime startTime;
-
-    @Column(nullable = false)
-    private LocalTime endTime;
 
     @Column(nullable = false)
     private BigDecimal totalPrice;

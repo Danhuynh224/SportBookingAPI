@@ -12,5 +12,5 @@ public class SubFacilityDTO {
     private String name;
     private Long facilityId;
     private FacilityType facilityType;
-    private FacilityStatus status = FacilityStatus.AVAILABLE;
+//    private FacilityStatus status = FacilityStatus.AVAILABLE;
 }

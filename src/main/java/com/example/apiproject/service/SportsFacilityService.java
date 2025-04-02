@@ -54,6 +54,7 @@ public class SportsFacilityService {
         return new ArrayList<>(uniqueFacilities);
     }
 
+
     public List<SportsFacility> filterFacilities(List<String> types, String address, BigDecimal minPrice, BigDecimal maxPrice) {
         List<SportsFacility> filteredFacilities = sportsFacilityRepository.findAll().stream()
                 .filter(facility -> (types == null || facility.getPrices().stream().anyMatch(price -> types.contains(price.getFacilityType().getName()))))

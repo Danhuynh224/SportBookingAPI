@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SubFacilityRepository extends JpaRepository<SubFacility, Long> {
     SubFacility findBySubFacilityId(Long subFacilityId);
-    List<SubFacility> findSubFacilitiesBySportsFacilitySportsFacilityId(Long facilityId);
+    List<SubFacility> findSubFacilitiesBySportsFacilitySportsFacilityId(Long sportsFacility_sportsFacilityId);
 }
