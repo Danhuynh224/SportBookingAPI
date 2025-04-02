@@ -55,24 +55,14 @@ public class SportsFacilityController {
     @GetMapping("/filter")
     public ResponseEntity<List<SportsFacility>> filterSportsFacilities(
             @RequestParam(required = false) List<String> types,
-            @RequestParam(required = false) List<String> addresses,
+            @RequestParam(required = false) String address,
             @RequestParam(required = false) BigDecimal minPrice,
-            @RequestParam(required = false) BigDecimal maxPrice,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime availableTime) {
+            @RequestParam(required = false) BigDecimal maxPrice) {
 
-        List<SportsFacility> facilities = sportsFacilityService.filterFacilities(types, addresses, minPrice, maxPrice, availableTime);
+        List<SportsFacility> facilities = sportsFacilityService.filterFacilities(types, address, minPrice, maxPrice);
         if (facilities.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(facilities);
     }
-    // API lấy ra 10 sân được booking nhiều nhất
-//    @GetMapping("/top10")
-//    public ResponseEntity<List<SportsFacility>> getTop10Facility() {
-//        List<SportsFacility> facilities = sportsFacilityService.findAllByOrderByBookingDesc10();
-//        if (facilities.isEmpty()) {
-//            return ResponseEntity.noContent().build();
-//        }
-//        return ResponseEntity.ok(facilities);
-//    }
 }
