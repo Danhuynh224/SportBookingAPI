@@ -3,6 +3,7 @@ package com.example.apiproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 
 @Entity
@@ -21,7 +22,8 @@ public class BookingInfo {
 
     @Column(nullable = false)
     private LocalTime endTime;
-
+    @Column(nullable = false)
+    private BigDecimal totalPrice;
     @ManyToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;

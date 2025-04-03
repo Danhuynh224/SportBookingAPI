@@ -33,6 +33,8 @@ public class Booking {
 
     @Column(nullable = false)
     private LocalDate bookingDate;
+    @Column(nullable = false)
+    private int totalHour;
 
     @Column(nullable = false)
     private BigDecimal totalPrice;
