@@ -42,4 +42,31 @@ public class ImageController {
         else return ResponseEntity.notFound().build();
     }
 
+
+    // Post
+    @PostMapping("/post/upload")
+    public ResponseEntity<String> uploadPostImage(@RequestParam("file") MultipartFile file,
+                                                  @RequestParam("postId") Long postId) {
+        try {
+            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            String imageUrl = imageService.uploadPostImage(postId, file.getBytes(), fileName);
+            return ResponseEntity.ok(imageUrl);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body("Upload post image failed!");
+        }
+    }
+
+    @GetMapping("/post/{id}")
+    public ResponseEntity<Resource> getPostImage(@PathVariable("id") Long id) throws IOException {
+        Resource resource = imageService.getPostImage(id);
+        if (resource != null) {
+            String contentType = "image/png"; // or detect from filename
+            return ResponseEntity.ok()
+                    .header("Content-Type", contentType)
+                    .body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
