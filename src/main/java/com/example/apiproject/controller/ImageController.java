@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/images")
@@ -40,6 +42,28 @@ public class ImageController {
                     .header("Content-Type", contentType)
                     .body(resource);}
         else return ResponseEntity.notFound().build();
+    }
+
+
+    // Post
+    @PostMapping("/post/upload")
+    public ResponseEntity<List<String>> uploadPostImages(@RequestParam("files") MultipartFile[] files,
+                                                         @RequestParam("postId") Long postId) {
+        try {
+            List<String> imageUrls = imageService.uploadPostImages(postId, files);
+            return ResponseEntity.ok(imageUrls);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body(Collections.singletonList("Upload failed!"));
+        }
+    }
+
+    @GetMapping("/post/{id}")
+    public ResponseEntity<List<String>> getPostImageUrls(@PathVariable("id") Long postId) {
+        List<String> imageUrls = imageService.getPostImageUrls(postId);
+        if (imageUrls.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(imageUrls);
     }
 
 }
