@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/images")
@@ -45,28 +47,23 @@ public class ImageController {
 
     // Post
     @PostMapping("/post/upload")
-    public ResponseEntity<String> uploadPostImage(@RequestParam("file") MultipartFile file,
-                                                  @RequestParam("postId") Long postId) {
+    public ResponseEntity<List<String>> uploadPostImages(@RequestParam("files") MultipartFile[] files,
+                                                         @RequestParam("postId") Long postId) {
         try {
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            String imageUrl = imageService.uploadPostImage(postId, file.getBytes(), fileName);
-            return ResponseEntity.ok(imageUrl);
+            List<String> imageUrls = imageService.uploadPostImages(postId, files);
+            return ResponseEntity.ok(imageUrls);
         } catch (IOException e) {
-            return ResponseEntity.internalServerError().body("Upload post image failed!");
+            return ResponseEntity.internalServerError().body(Collections.singletonList("Upload failed!"));
         }
     }
 
     @GetMapping("/post/{id}")
-    public ResponseEntity<Resource> getPostImage(@PathVariable("id") Long id) throws IOException {
-        Resource resource = imageService.getPostImage(id);
-        if (resource != null) {
-            String contentType = "image/png"; // or detect from filename
-            return ResponseEntity.ok()
-                    .header("Content-Type", contentType)
-                    .body(resource);
-        } else {
+    public ResponseEntity<List<String>> getPostImageUrls(@PathVariable("id") Long postId) {
+        List<String> imageUrls = imageService.getPostImageUrls(postId);
+        if (imageUrls.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(imageUrls);
     }
 
 }
