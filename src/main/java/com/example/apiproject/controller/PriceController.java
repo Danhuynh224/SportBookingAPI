@@ -1,5 +1,6 @@
 package com.example.apiproject.controller;
 
+import com.example.apiproject.dto.PriceDTO;
 import com.example.apiproject.entity.Price;
 import com.example.apiproject.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,14 @@ public class PriceController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(price);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<Price> savePrice(@RequestBody PriceDTO priceDTO) {
+        Price priceSave = priceService.savePrice(priceDTO);
+        if (priceSave == null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(priceSave);
     }
 }

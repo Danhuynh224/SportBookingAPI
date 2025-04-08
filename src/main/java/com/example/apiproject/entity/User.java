@@ -30,9 +30,6 @@ public class User {
     @Column(nullable = false, unique = true, length = 15)
     String phone;
 
-    @Column(nullable = false)
-    String passwordHash;
-
     @Enumerated(EnumType.STRING)
     Role role;
 }
