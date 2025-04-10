@@ -42,30 +42,30 @@ public class BookingController {
     }
 
     // test /filterByStatus?status=CONFIRMED
-    @GetMapping("/filterByStatus")
-    public ResponseEntity<List<Booking>> filterBookingByDate(
-            @RequestParam String status) {
-        List<Booking> bookings = bookingService.getBookingsByStatus(status);
+//    @GetMapping("/filterByStatus")
+//    public ResponseEntity<List<Booking>> filterBookingByDate(
+//            @RequestParam String status) {
+//        List<Booking> bookings = bookingService.getBookingsByStatus(status);
+//        if (bookings.isEmpty()) {
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.ok(bookings);
+//    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
+        System.out.println("Received booking: " + booking); // Log booking
+        Booking savedBooking = bookingService.addBooking(booking);
+        return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getByDateAndTypeAndSubFa")
+    public ResponseEntity<List<Booking>> getBookingByDate(@RequestParam LocalDate bookingDate, @RequestParam Long facilityTypeId, @RequestParam Long subFacilityId) {
+        List<Booking> bookings = bookingService.getBookingByBookingDate(bookingDate, facilityTypeId, subFacilityId);
         if (bookings.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(bookings);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Booking> addBooking(@RequestBody BookingRequestDTO bookingRequest)
-    {
-        Booking booking = bookingService.addBooking(bookingRequest);
-        return new ResponseEntity<>(booking, HttpStatus.CREATED);
-    }
-
-//    @PutMapping("/cancel/{id}")
-//    public ResponseEntity<String> cancelBooking(@PathVariable Long id)
-//    {
-//        boolean isCanceled = bookingService.cancelBooking(id);
-//        if (isCanceled) {
-//            return ResponseEntity.ok("Đã hủy thành công.");
-//        }
-//        return ResponseEntity.badRequest().body("Không thể hủy. Cần hủy trước ít nhất 24 giờ!");
-//    }
 }

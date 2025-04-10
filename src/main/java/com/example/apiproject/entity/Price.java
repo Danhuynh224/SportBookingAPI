@@ -16,8 +16,6 @@ public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long priceID;
-
-
     @Column(nullable = false)
     private BigDecimal earlyTime ;
     @Column(nullable = false)

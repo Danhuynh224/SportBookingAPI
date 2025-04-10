@@ -29,7 +29,7 @@ public class Booking {
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(nullable = false)
-    private List<BookingInfo> bookingInfo;
+    private List<BookingInfo> bookingInfos;
 
     @Column(nullable = false)
     private LocalDate bookingDate;
@@ -43,8 +43,8 @@ public class Booking {
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private Payment payment;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private BookingStatus status = BookingStatus.PENDING;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String note;
 
 }

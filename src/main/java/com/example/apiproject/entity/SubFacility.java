@@ -23,6 +23,7 @@ public class SubFacility {
     @Column(nullable = false)
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sports_facility_id", nullable = false)
     private SportsFacility sportsFacility; // Thuộc một khu thể thao
@@ -36,9 +37,6 @@ public class SubFacility {
     @OneToMany(mappedBy = "subFacility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingInfo> bookingInfos = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private FacilityStatus status = FacilityStatus.AVAILABLE;
 
 
 
