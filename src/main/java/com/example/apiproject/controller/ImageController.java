@@ -1,14 +1,17 @@
 package com.example.apiproject.controller;
 
+import com.example.apiproject.entity.Post;
 import com.example.apiproject.service.ImageService;
 import org.eclipse.angus.mail.iap.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -47,8 +50,8 @@ public class ImageController {
 
     // Post
     @PostMapping("/post/upload")
-    public ResponseEntity<List<String>> uploadPostImages(@RequestParam("files") MultipartFile[] files,
-                                                         @RequestParam("postId") Long postId) {
+    public ResponseEntity<List<String>> uploadPostImages(@RequestParam("postId") Long postId,
+                                                         @RequestParam("files") MultipartFile[] files) {
         try {
             List<String> imageUrls = imageService.uploadPostImages(postId, files);
             return ResponseEntity.ok(imageUrls);
@@ -57,13 +60,17 @@ public class ImageController {
         }
     }
 
-    @GetMapping("/post/{id}")
-    public ResponseEntity<List<String>> getPostImageUrls(@PathVariable("id") Long postId) {
-        List<String> imageUrls = imageService.getPostImageUrls(postId);
-        if (imageUrls.isEmpty()) {
+    @GetMapping("/post/{fileName:.+}")
+    public ResponseEntity<Resource> getPostImage(@PathVariable String fileName) {
+        try {
+            Resource resource = imageService.getPostImageResource(fileName);
+            String contentType = Files.probeContentType(resource.getFile().toPath());
+            return ResponseEntity.ok()
+                    .header("Content-Type", contentType != null ? contentType : "application/octet-stream")
+                    .body(resource);
+        } catch (IOException e) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(imageUrls);
     }
 
 }

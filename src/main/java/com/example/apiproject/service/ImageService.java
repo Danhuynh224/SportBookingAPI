@@ -31,6 +31,8 @@ public class ImageService {
 
     private static final String UPLOAD_DIR = "src/main/resources/static/images/";
 
+    private static final String POST_IMAGE_DIR = "src/main/resources/static/images/post/";
+
     public String uploadImage(String name, byte[] bytes, String fileName) throws IOException {
         Path filePath = Paths.get(UPLOAD_DIR + fileName);
         Files.createDirectories(filePath.getParent());
@@ -59,45 +61,45 @@ public class ImageService {
 
     // Phương thức upload nhiều ảnh
     public List<String> uploadPostImages(Long postId, MultipartFile[] files) throws IOException {
-        List<String> imageUrls = new ArrayList<>();
         List<String> fileNames = new ArrayList<>();
+        List<String> imageUrls = new ArrayList<>();
 
         for (MultipartFile file : files) {
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            Path filePath = Paths.get(UPLOAD_DIR + fileName);
-            Files.createDirectories(filePath.getParent());
-            Files.write(filePath, file.getBytes(), StandardOpenOption.CREATE);
+            if (!file.isEmpty()) {
+                String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                Path filePath = Paths.get(POST_IMAGE_DIR + fileName);
+                Files.createDirectories(filePath.getParent());
+                Files.write(filePath, file.getBytes(), StandardOpenOption.CREATE);
 
-            imageUrls.add("http://localhost:8080/images/" + fileName);
-            fileNames.add(fileName);
+                fileNames.add(fileName);
+                imageUrls.add("http://localhost:8080/images/post/" + fileName);
+            }
         }
 
-        // Lưu danh sách tên file vào trường img trong bảng Post
         Post post = postRepository.findByIdPost(postId);
-        String existingImg = post.getImg(); // Có thể null nếu chưa có
-        String newImg = String.join(",", fileNames);
-
-        if (existingImg != null && !existingImg.isEmpty()) {
-            post.setImg(existingImg + "," + newImg);
-        } else {
-            post.setImg(newImg);
+        if (post != null) {
+            String existingImages = post.getImg();
+            String newImages = String.join(",", fileNames);
+            if (existingImages != null && !existingImages.isEmpty()) {
+                post.setImg(existingImages + "," + newImages);
+            } else {
+                post.setImg(newImages);
+            }
+            postRepository.save(post);
         }
 
-        postRepository.save(post);
         return imageUrls;
     }
 
-    // Phương thức lấy danh sách ảnh của post
-    public List<String> getPostImageUrls(Long postId) {
-        Post post = postRepository.findByIdPost(postId);
-        if (post == null || post.getImg() == null || post.getImg().isEmpty()) {
-            return Collections.emptyList();
-        }
+    public Resource getPostImageResource(String fileName) throws IOException {
+        Path filePath = Paths.get(POST_IMAGE_DIR).resolve(fileName);
+        Resource resource = new UrlResource(filePath.toUri());
 
-        String[] fileNames = post.getImg().split(",");
-        return Arrays.stream(fileNames)
-                .map(name -> "http://localhost:8080/images/" + name)
-                .collect(Collectors.toList());
+        if (resource.exists() && resource.isReadable()) {
+            return resource;
+        } else {
+            throw new IOException("Image not found: " + fileName);
+        }
     }
 
 }
