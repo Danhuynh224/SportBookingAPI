@@ -1,11 +1,13 @@
 package com.example.apiproject.entity;
 
 import com.example.apiproject.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -21,15 +23,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long userId;
-    @Column(nullable = false, length = 100)
-    String fullName;
 
-    @Column(nullable = false, unique = true, length = 100)
-    String email;
+    @Column(nullable = true, length = 100)
+    private String fullName = "";
 
-    @Column(nullable = false, unique = true, length = 15)
-    String phone;
+    @Column(nullable = true, unique = true, length = 100)
+    private String email = "";
+
+    @Column(nullable = true, length = 15)
+    private String phone = "";
 
     @Enumerated(EnumType.STRING)
-    Role role;
+    private Role role = Role.USER; // giả sử bạn có enum Role { ADMIN, USER }
+
+    @Column(nullable = true, length = 100)
+    private String sex = "Không xác định";
+
+    @Column(nullable = true, length = 100)
+    private String address = "";
+
+    @Column(nullable = true)
+    private LocalDate birthday = LocalDate.of(2000, 1, 1);
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Account account;
 }

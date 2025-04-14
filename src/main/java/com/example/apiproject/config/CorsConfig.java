@@ -2,8 +2,14 @@ package com.example.apiproject.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+
 
 @Configuration
 public class CorsConfig {
@@ -15,6 +21,20 @@ public class CorsConfig {
                 registry.addMapping("/**").allowedOrigins("*"); //Cho phép tất cả các nguồn (origin) có thể truy cập vào API, không giới hạn tên miền nào.
             }
         };
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(CsrfConfigurer::disable) // Cú pháp mới để disable CSRF
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll() // Cho phép tất cả các endpoint
+                );
+
+        return http.build();
     }
 }
 
