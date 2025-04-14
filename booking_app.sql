@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `booking_app` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `booking_app`;
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: booking_app
@@ -16,6 +18,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `account`
+--
+
+DROP TABLE IF EXISTS `account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `account` (
+  `password` varchar(100) NOT NULL,
+  `user_id` bigint NOT NULL,
+  `username` varchar(100) NOT NULL,
+  UNIQUE KEY `UKh6dr47em6vg85yuwt4e2roca4` (`user_id`),
+  CONSTRAINT `FK7m8ru44m93ukyb61dfxw0apf6` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account`
+--
+
+LOCK TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES ('$2a$10$fjN2QOKZWdwuCSiOPboSCekMQ9HHWY3FbyK/V3ip1A36oCsVMJLSm',1,'newuser'),('$2a$10$bypJsgowXyEXcyD9Pw9QXekHIaqqfQt29QU7nX5ErtLIZUfgv3mf6',2,'dan'),('$2a$10$CnYA.xU813X.Zwcz2nsSkO0q2AIuffD1ApdzSaPiF39Z3m09dYbyK',3,'daaan'),('$2a$10$obs0vEhaAIqWHlo10uaMQeI1CQkmOKxugCB4B6nOimUhscCgm/sR.',4,'minhtri'),('$2a$10$/Zwh8LsXfdODRPvB9R0hNOLyDic360YVwSspB1cd32//eB0TX5d7e',5,'honggson'),('$2a$10$FyJlPlxtpK1e4/4nwPeZI.pxem455mpcYNswfEozPFGmrsay5XPge',8,'daa1an'),('$2a$10$eRFx8fEa3XDPtZXSxOf6GeRVZ79ZvSQLblpIqwKsHVVCCxr/KqLGW',9,'TuanKiet'),('$2a$10$6xZm0mY3hVzDC/ttK1WS5.oVWRnzRHoBXV870Glmsyb6o9qxo3HxS',10,'thanhphong');
+/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `booking`
 --
 
@@ -25,18 +53,14 @@ DROP TABLE IF EXISTS `booking`;
 CREATE TABLE `booking` (
   `booking_id` bigint NOT NULL AUTO_INCREMENT,
   `booking_date` date NOT NULL,
-  `end_time` time(6) NOT NULL,
-  `start_time` time(6) NOT NULL,
-  `status` enum('CANCELLED','CONFIRMED','PENDING') NOT NULL,
+  `note` longtext,
+  `total_hour` int NOT NULL,
   `total_price` decimal(38,2) NOT NULL,
-  `sub_facility_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
   PRIMARY KEY (`booking_id`),
-  KEY `FK3wtlhxrey5p0aql92611a350w` (`sub_facility_id`),
   KEY `FKkgseyy7t56x7lkjgu3wah5s3t` (`user_id`),
-  CONSTRAINT `FK3wtlhxrey5p0aql92611a350w` FOREIGN KEY (`sub_facility_id`) REFERENCES `sub_facility` (`sub_facility_id`),
   CONSTRAINT `FKkgseyy7t56x7lkjgu3wah5s3t` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,8 +69,40 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'2025-03-01','10:00:00.000000','08:00:00.000000','PENDING',100000.00,1,3),(2,'2025-03-02','11:00:00.000000','09:00:00.000000','CONFIRMED',300000.00,3,4),(3,'2025-03-03','16:00:00.000000','14:00:00.000000','CANCELLED',400000.00,4,3),(4,'2025-03-04','19:00:00.000000','17:00:00.000000','CONFIRMED',500000.00,5,4),(5,'2025-03-05','12:00:00.000000','10:00:00.000000','CONFIRMED',260000.00,6,3),(6,'2025-03-06','15:00:00.000000','13:00:00.000000','CONFIRMED',220000.00,7,4),(7,'2025-03-07','18:00:00.000000','16:00:00.000000','PENDING',280000.00,8,3),(8,'2025-03-07','15:00:00.000000','14:00:00.000000','CONFIRMED',150000.00,18,4),(9,'2025-03-07','19:00:00.000000','17:00:00.000000','CONFIRMED',300000.00,19,3),(10,'2025-03-07','18:00:00.000000','17:00:00.000000','CONFIRMED',150000.00,20,4);
+INSERT INTO `booking` VALUES (16,'2025-04-14',NULL,2,100000.00,1);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `booking_info`
+--
+
+DROP TABLE IF EXISTS `booking_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `booking_info` (
+  `booking_info_id` bigint NOT NULL AUTO_INCREMENT,
+  `end_time` time(6) NOT NULL,
+  `start_time` time(6) NOT NULL,
+  `total_price` decimal(38,2) NOT NULL,
+  `booking_id` bigint DEFAULT NULL,
+  `sub_facility_id` bigint NOT NULL,
+  PRIMARY KEY (`booking_info_id`),
+  KEY `FKe1at5cua7wbkt5jgrk94n5v6g` (`booking_id`),
+  KEY `FK405e7w57sm822ppk87x1yblmu` (`sub_facility_id`),
+  CONSTRAINT `FK405e7w57sm822ppk87x1yblmu` FOREIGN KEY (`sub_facility_id`) REFERENCES `sub_facility` (`sub_facility_id`),
+  CONSTRAINT `FKe1at5cua7wbkt5jgrk94n5v6g` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `booking_info`
+--
+
+LOCK TABLES `booking_info` WRITE;
+/*!40000 ALTER TABLE `booking_info` DISABLE KEYS */;
+INSERT INTO `booking_info` VALUES (24,'12:00:00.000000','11:00:00.000000',50000.00,16,25),(25,'13:00:00.000000','12:00:00.000000',50000.00,16,27);
+/*!40000 ALTER TABLE `booking_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -61,7 +117,7 @@ CREATE TABLE `facility_type` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`facility_type_id`),
   UNIQUE KEY `UKd2o6ftcro2k532kvg8rp5k6qc` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +126,7 @@ CREATE TABLE `facility_type` (
 
 LOCK TABLES `facility_type` WRITE;
 /*!40000 ALTER TABLE `facility_type` DISABLE KEYS */;
-INSERT INTO `facility_type` VALUES (4,'Bóng đá'),(3,'Bóng rổ'),(1,'Cầu lông'),(5,'Pickleball'),(2,'Tennis');
+INSERT INTO `facility_type` VALUES (6,'Bóng chuyền'),(4,'Bóng đá'),(3,'Bóng rổ'),(1,'Cầu lông'),(5,'Pickleball'),(2,'Tennis');
 /*!40000 ALTER TABLE `facility_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +150,7 @@ CREATE TABLE `payment` (
   KEY `FK4spfnm9si9dowsatcqs5or42i` (`user_id`),
   CONSTRAINT `FK4spfnm9si9dowsatcqs5or42i` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `FKqewrl4xrv9eiad6eab3aoja65` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +159,6 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES (1,200000.00,'2025-03-01','CREDIT_CARD','COMPLETED',1,3),(2,300000.00,'2025-03-02','CASH','PENDING',2,4),(3,400000.00,'2025-03-03','BANK_TRANSFER','COMPLETED',3,3),(4,260000.00,'2025-03-05','BANK_TRANSFER','COMPLETED',5,4),(5,220000.00,'2025-03-06','CREDIT_CARD','COMPLETED',6,3),(6,280000.00,'2025-03-07','BANK_TRANSFER','PENDING',7,4);
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,6 +175,7 @@ CREATE TABLE `post` (
   `summary` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `sports_facility_id` bigint NOT NULL,
+  `img` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_post`),
   KEY `FKppmd3kauyk9d61fpo3i4mfwra` (`sports_facility_id`),
   CONSTRAINT `FKppmd3kauyk9d61fpo3i4mfwra` FOREIGN KEY (`sports_facility_id`) REFERENCES `sports_facility` (`sports_facility_id`)
@@ -132,7 +188,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Giải cầu lông toàn quốc 2024 diễn ra tại nhà thi đấu Phú Thọ, TP. Hồ Chí Minh, với sự tham gia của hơn 200 tay vợt đến từ khắp các tỉnh thành. \n Ngay từ những ngày thi đấu đầu tiên, khán giả đã được chứng kiến những màn rượt đuổi điểm số nghẹt thở, những pha đập cầu sấm sét và những chiến thuật thi đấu tinh tế. \n Đáng chú ý là sự góp mặt của các tuyển thủ quốc gia như Nguyễn Tiến Minh và Vũ Thị Trang, những người đã làm nên tên tuổi của cầu lông Việt Nam trên đấu trường quốc tế.\n \n Trận chung kết đơn nam là màn so tài kịch tính giữa hai tài năng trẻ. Với lối chơi tấn công mạnh mẽ và khả năng di chuyển linh hoạt, trận đấu diễn ra căng thẳng qua từng set đấu. \n Mỗi cú đánh đều thể hiện sự khéo léo và chính xác, mang lại cảm xúc mãnh liệt cho người hâm mộ. \n Chung cuộc, nhà vô địch mới đã lộ diện, mở ra một thế hệ vận động viên trẻ đầy triển vọng cho tương lai của cầu lông Việt Nam.','Nhà thi đấu Phú Thọ chứng kiến những trận đấu kịch tính giữa các tay vợt hàng đầu.','Giải Cầu Lông Toàn Quốc 2024 - Những Trận Cầu Đỉnh Cao',2),(2,'Giải bóng đá vô địch quốc gia 2024 đã khép lại với trận chung kết đầy cảm xúc giữa hai đội bóng hàng đầu. \n Hàng vạn khán giả đổ về sân vận động Mỹ Đình để chứng kiến những ngôi sao sáng nhất làng bóng đá Việt Nam tranh tài. \n Ngay từ những phút đầu tiên, cả hai đội đều thể hiện lối chơi quyết liệt và không ngại va chạm. \n\n Phút thứ 15, đội chủ nhà có bàn thắng mở tỷ số sau một pha phối hợp đẹp mắt ở trung lộ. Tuy nhiên, niềm vui không kéo dài lâu khi đội khách gỡ hòa ngay trong hiệp 1 từ một cú sút xa đầy uy lực. \n Hiệp 2 diễn ra vô cùng kịch tính khi cả hai đội đều đẩy cao đội hình, tạo ra hàng loạt cơ hội nguy hiểm. \n\n Bước ngoặt xảy ra ở phút 85 khi tiền đạo chủ lực của đội chủ nhà có pha solo ngoạn mục qua hai hậu vệ, dứt điểm hiểm hóc ấn định chiến thắng 2-1. \n Niềm vui vỡ òa khi tiếng còi mãn cuộc vang lên, đánh dấu một mùa giải đầy cảm xúc và hứa hẹn nhiều điều bất ngờ cho mùa giải năm sau.','Sân vận động Quốc gia Mỹ Đình bùng nổ trong trận chung kết nghẹt thở.','Chung Kết Giải Bóng Đá Vô Địch Quốc Gia 2024 - Những Pha Bóng Nghẹt Thở',1),(3,'Giải Tennis Mở Rộng 2024 được tổ chức tại Trung tâm thể thao Đà Nẵng đã thu hút sự chú ý của hàng ngàn khán giả yêu mến môn thể thao quý tộc này. \n Ngay từ những vòng đấu đầu tiên, khán giả đã được chứng kiến những trận đấu kịch tính, nơi từng đường bóng đều là sự kết hợp hoàn hảo giữa kỹ thuật, sức mạnh và bản lĩnh thi đấu. \n\n Trận chung kết đơn nam là cuộc đối đầu giữa hai tay vợt hàng đầu Việt Nam. Set đầu tiên diễn ra vô cùng cân bằng khi cả hai đều giữ chắc game giao bóng của mình, buộc trận đấu phải giải quyết bằng loạt tie-break căng thẳng. \n Set thứ hai chứng kiến sự bứt phá mạnh mẽ khi một trong hai tay vợt liên tục giành break, tạo ra khoảng cách an toàn để giành chiến thắng chung cuộc. \n\n Không chỉ là nơi phô diễn kỹ thuật, giải đấu năm nay còn là cơ hội để các tay vợt trẻ cọ xát, học hỏi và khẳng định bản thân trên đấu trường quốc gia.','Trung tâm thể thao Đà Nẵng chào đón những tay vợt xuất sắc nhất Việt Nam.','Giải Tennis Mở Rộng 2024 - Những Pha Bóng Nghệ Thuật',4),(4,'Giải bóng chuyền nữ vô địch quốc gia năm nay chứng kiến sự cạnh tranh quyết liệt giữa các đội bóng mạnh nhất cả nước. \n Trận chung kết là màn so tài kịch tính giữa đội bóng nữ TP. Hồ Chí Minh và đội bóng nữ Vĩnh Long. \n\n Ngay từ những pha bóng đầu tiên, cả hai đội đã mang đến cho khán giả những màn rượt đuổi điểm số đầy căng thẳng. \n Đội TP. Hồ Chí Minh nổi bật với những cú đập uy lực từ tuyến ngoài, trong khi đội Vĩnh Long lại ghi điểm nhờ những pha bám chắn chắc chắn cùng lối chơi đồng đội gắn kết. \n\n Trận đấu kéo dài tới 5 set đầy nghẹt thở, trong đó set cuối cùng kết thúc với tỷ số 16-14, khép lại một giải đấu đáng nhớ. \n Đây không chỉ là sân chơi để các đội bóng tranh tài mà còn là nơi phát hiện những tài năng mới cho đội tuyển quốc gia trong tương lai.','Những pha đập bóng uy lực và những cuộc rượt đuổi điểm số nghẹt thở.','Giải Bóng Chuyền Nữ Vô Địch Quốc Gia - Sự Trỗi Dậy Của Thế Hệ Mới',3);
+INSERT INTO `post` VALUES (1,'Giải cầu lông toàn quốc 2024 diễn ra tại nhà thi đấu Phú Thọ, TP. Hồ Chí Minh, với sự tham gia của hơn 200 tay vợt đến từ khắp các tỉnh thành. \n Ngay từ những ngày thi đấu đầu tiên, khán giả đã được chứng kiến những màn rượt đuổi điểm số nghẹt thở, những pha đập cầu sấm sét và những chiến thuật thi đấu tinh tế. \n Đáng chú ý là sự góp mặt của các tuyển thủ quốc gia như Nguyễn Tiến Minh và Vũ Thị Trang, những người đã làm nên tên tuổi của cầu lông Việt Nam trên đấu trường quốc tế.\n \n Trận chung kết đơn nam là màn so tài kịch tính giữa hai tài năng trẻ. Với lối chơi tấn công mạnh mẽ và khả năng di chuyển linh hoạt, trận đấu diễn ra căng thẳng qua từng set đấu. \n Mỗi cú đánh đều thể hiện sự khéo léo và chính xác, mang lại cảm xúc mãnh liệt cho người hâm mộ. \n Chung cuộc, nhà vô địch mới đã lộ diện, mở ra một thế hệ vận động viên trẻ đầy triển vọng cho tương lai của cầu lông Việt Nam.','Nhà thi đấu Phú Thọ chứng kiến những trận đấu kịch tính giữa các tay vợt hàng đầu.','Giải Cầu Lông Toàn Quốc 2024 - Những Trận Cầu Đỉnh Cao',2,'italy.jpg,xuanthethao.jpg,olympic.jpg'),(2,'Giải bóng đá vô địch quốc gia 2024 đã khép lại với trận chung kết đầy cảm xúc giữa hai đội bóng hàng đầu. \n Hàng vạn khán giả đổ về sân vận động Mỹ Đình để chứng kiến những ngôi sao sáng nhất làng bóng đá Việt Nam tranh tài. \n Ngay từ những phút đầu tiên, cả hai đội đều thể hiện lối chơi quyết liệt và không ngại va chạm. \n\n Phút thứ 15, đội chủ nhà có bàn thắng mở tỷ số sau một pha phối hợp đẹp mắt ở trung lộ. Tuy nhiên, niềm vui không kéo dài lâu khi đội khách gỡ hòa ngay trong hiệp 1 từ một cú sút xa đầy uy lực. \n Hiệp 2 diễn ra vô cùng kịch tính khi cả hai đội đều đẩy cao đội hình, tạo ra hàng loạt cơ hội nguy hiểm. \n\n Bước ngoặt xảy ra ở phút 85 khi tiền đạo chủ lực của đội chủ nhà có pha solo ngoạn mục qua hai hậu vệ, dứt điểm hiểm hóc ấn định chiến thắng 2-1. \n Niềm vui vỡ òa khi tiếng còi mãn cuộc vang lên, đánh dấu một mùa giải đầy cảm xúc và hứa hẹn nhiều điều bất ngờ cho mùa giải năm sau.','Sân vận động Quốc gia Mỹ Đình bùng nổ trong trận chung kết nghẹt thở.','Chung Kết Giải Bóng Đá Vô Địch Quốc Gia 2024 - Những Pha Bóng Nghẹt Thở',1,'a.jpg,b.jpg'),(3,'Giải Tennis Mở Rộng 2024 được tổ chức tại Trung tâm thể thao Đà Nẵng đã thu hút sự chú ý của hàng ngàn khán giả yêu mến môn thể thao quý tộc này. \n Ngay từ những vòng đấu đầu tiên, khán giả đã được chứng kiến những trận đấu kịch tính, nơi từng đường bóng đều là sự kết hợp hoàn hảo giữa kỹ thuật, sức mạnh và bản lĩnh thi đấu. \n\n Trận chung kết đơn nam là cuộc đối đầu giữa hai tay vợt hàng đầu Việt Nam. Set đầu tiên diễn ra vô cùng cân bằng khi cả hai đều giữ chắc game giao bóng của mình, buộc trận đấu phải giải quyết bằng loạt tie-break căng thẳng. \n Set thứ hai chứng kiến sự bứt phá mạnh mẽ khi một trong hai tay vợt liên tục giành break, tạo ra khoảng cách an toàn để giành chiến thắng chung cuộc. \n\n Không chỉ là nơi phô diễn kỹ thuật, giải đấu năm nay còn là cơ hội để các tay vợt trẻ cọ xát, học hỏi và khẳng định bản thân trên đấu trường quốc gia.','Trung tâm thể thao Đà Nẵng chào đón những tay vợt xuất sắc nhất Việt Nam.','Giải Tennis Mở Rộng 2024 - Những Pha Bóng Nghệ Thuật',4,'c.jpg,d.jpg'),(4,'Giải bóng chuyền nữ vô địch quốc gia năm nay chứng kiến sự cạnh tranh quyết liệt giữa các đội bóng mạnh nhất cả nước. \n Trận chung kết là màn so tài kịch tính giữa đội bóng nữ TP. Hồ Chí Minh và đội bóng nữ Vĩnh Long. \n\n Ngay từ những pha bóng đầu tiên, cả hai đội đã mang đến cho khán giả những màn rượt đuổi điểm số đầy căng thẳng. \n Đội TP. Hồ Chí Minh nổi bật với những cú đập uy lực từ tuyến ngoài, trong khi đội Vĩnh Long lại ghi điểm nhờ những pha bám chắn chắc chắn cùng lối chơi đồng đội gắn kết. \n\n Trận đấu kéo dài tới 5 set đầy nghẹt thở, trong đó set cuối cùng kết thúc với tỷ số 16-14, khép lại một giải đấu đáng nhớ. \n Đây không chỉ là sân chơi để các đội bóng tranh tài mà còn là nơi phát hiện những tài năng mới cho đội tuyển quốc gia trong tương lai.','Những pha đập bóng uy lực và những cuộc rượt đuổi điểm số nghẹt thở.','Giải Bóng Chuyền Nữ Vô Địch Quốc Gia - Sự Trỗi Dậy Của Thế Hệ Mới',3,'e.jpg,f.jpg,g.jpg,h.jpg');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +212,7 @@ CREATE TABLE `price` (
   KEY `FKgh9nqtu6kce816vurkha355q2` (`type_id`),
   CONSTRAINT `FKgh9nqtu6kce816vurkha355q2` FOREIGN KEY (`type_id`) REFERENCES `facility_type` (`facility_type_id`),
   CONSTRAINT `FKgp8rdy7v8o8f6fr41v6fyojaa` FOREIGN KEY (`facility_id`) REFERENCES `sports_facility` (`sports_facility_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +221,7 @@ CREATE TABLE `price` (
 
 LOCK TABLES `price` WRITE;
 /*!40000 ALTER TABLE `price` DISABLE KEYS */;
-INSERT INTO `price` VALUES (1,50000.00,100000.00,100000.00,100000.00,1,1),(2,50000.00,100000.00,100000.00,100000.00,1,2);
+INSERT INTO `price` VALUES (1,50000.00,100000.00,100000.00,100000.00,1,1),(2,50000.00,100000.00,100000.00,100000.00,1,2),(3,80000.00,80000.00,120000.00,120000.00,2,1);
 /*!40000 ALTER TABLE `price` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +243,7 @@ CREATE TABLE `review` (
   KEY `FKiyf57dy48lyiftdrf7y87rnxi` (`user_id`),
   CONSTRAINT `FKiyf57dy48lyiftdrf7y87rnxi` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `FKo92wms916mkn29yylbw6pr8x3` FOREIGN KEY (`facility_id`) REFERENCES `sports_facility` (`sports_facility_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +252,6 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'Sân rất đẹp và thoải mái!',5,1,3),(2,'Dịch vụ tốt nhưng giá hơi cao.',4,2,4),(3,'Sân ổn nhưng cần bảo trì thêm.',3,3,3),(4,'Rất hài lòng với trải nghiệm ở đây!',5,4,4),(5,'Pickleball ở đây chơi rất thích!',5,5,3),(6,'Không gian rộng rãi, rất phù hợp!',4,1,4);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +304,7 @@ CREATE TABLE `sub_facility` (
   KEY `FKaxytax7fgqmlu6lj7lrwvbjhd` (`sports_facility_id`),
   CONSTRAINT `FKai7iex0l8jvguxphunermsbh3` FOREIGN KEY (`facility_type_id`) REFERENCES `facility_type` (`facility_type_id`),
   CONSTRAINT `FKaxytax7fgqmlu6lj7lrwvbjhd` FOREIGN KEY (`sports_facility_id`) REFERENCES `sports_facility` (`sports_facility_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,7 +313,7 @@ CREATE TABLE `sub_facility` (
 
 LOCK TABLES `sub_facility` WRITE;
 /*!40000 ALTER TABLE `sub_facility` DISABLE KEYS */;
-INSERT INTO `sub_facility` VALUES (1,'Sân 1','AVAILABLE',2,1),(2,'Sân 2','AVAILABLE',2,1),(3,'Sân 3','ISBOOKED',2,1),(4,'Sân 1','AVAILABLE',1,2),(5,'Sân 2','ISBOOKED',1,2),(6,'Sân 3','ISBOOKED',1,2),(7,'Sân 4','ISBOOKED',1,2),(8,'Sân 5','AVAILABLE',1,2),(9,'Sân 1','AVAILABLE',1,3),(10,'Sân 2','AVAILABLE',1,3),(11,'Sân 3','AVAILABLE',1,3),(12,'Sân 4','AVAILABLE',1,3),(13,'Sân 1','AVAILABLE',1,4),(14,'Sân 2','AVAILABLE',1,4),(15,'Sân 3','AVAILABLE',1,4),(16,'Sân 4','AVAILABLE',1,4),(17,'Sân 5','AVAILABLE',1,4),(18,'Sân 1','AVAILABLE',4,5),(19,'Sân 2','AVAILABLE',4,5),(20,'Sân 3','AVAILABLE',4,5),(21,'Sân 4','AVAILABLE',4,5),(22,'Sân 5','AVAILABLE',4,5),(23,'Sân 4','AVAILABLE',2,1),(24,'Sân 5','AVAILABLE',2,1),(25,'Sân 6','AVAILABLE',1,1),(26,'Sân A','AVAILABLE',1,2);
+INSERT INTO `sub_facility` VALUES (1,'Sân 2','AVAILABLE',2,1),(2,'Sân 3','AVAILABLE',2,1),(3,'Sân 4','ISBOOKED',2,1),(4,'Sân 1','AVAILABLE',1,2),(5,'Sân 2','ISBOOKED',1,2),(6,'Sân 3','ISBOOKED',1,2),(7,'Sân 4','ISBOOKED',1,2),(8,'Sân 5','AVAILABLE',1,2),(9,'Sân 1','AVAILABLE',1,3),(10,'Sân 2','AVAILABLE',1,3),(11,'Sân 3','AVAILABLE',1,3),(12,'Sân 4','AVAILABLE',1,3),(13,'Sân 1','AVAILABLE',1,4),(14,'Sân 2','AVAILABLE',1,4),(15,'Sân 3','AVAILABLE',1,4),(16,'Sân 4','AVAILABLE',1,4),(17,'Sân 5','AVAILABLE',1,4),(18,'Sân 1','AVAILABLE',4,5),(19,'Sân 2','AVAILABLE',4,5),(20,'Sân 3','AVAILABLE',4,5),(21,'Sân 4','AVAILABLE',4,5),(22,'Sân 5','AVAILABLE',4,5),(23,'Sân 5','AVAILABLE',2,1),(24,'Sân 6','AVAILABLE',2,1),(25,'Sân 1','AVAILABLE',1,1),(26,'Sân A','AVAILABLE',1,2),(27,'Sân 2','AVAILABLE',1,1);
 /*!40000 ALTER TABLE `sub_facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,15 +326,16 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `user_id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) NOT NULL,
-  `full_name` varchar(100) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `phone` varchar(15) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
   `role` enum('OWNER','USER') DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `sex` varchar(100) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `UKob8kqyqqgmefl0aco34akdtpe` (`email`),
-  UNIQUE KEY `UK589idila9li6a4arw1t8ht1gx` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `UKob8kqyqqgmefl0aco34akdtpe` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +344,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'a@example.com','Huỳnh Việt Đan','123','0987654321','OWNER'),(2,'b@example.com','Nguyễn Phan Minh Trí','123','0977123456','OWNER'),(3,'c@example.com','Nguyễn Hồng Sơn','123','0965234789','USER'),(4,'d@example.com','Huỳnh Tuấn Kiệt','123','0956347891','USER');
+INSERT INTO `user` VALUES (1,'newuser@example.com',NULL,NULL,NULL,NULL,NULL,NULL),(2,'Vdan2242004@gmail.com','Huỳnh Việt Đan','0362834995','USER','Huyện Chợ Lách|Tỉnh Bến Tre','Nam','2004-04-22'),(3,'huynh@gmail.com','','','USER','','Không xác định','2000-01-01'),(4,'minhtri@gmail.com','','','USER','','Không xác định','2000-01-01'),(5,'honggson@gmail.com','','','USER','','Không xác định','2000-01-01'),(8,'huynhư@gmail.com','','','USER','','Không xác định','2000-01-01'),(9,'tuankiet@gmail.com','','','USER','','Không xác định','2000-01-01'),(10,'tphong@gmail.com','','','USER','','Không xác định','2000-01-01');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -301,4 +357,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-26 17:12:17
+-- Dump completed on 2025-04-14 13:05:13
