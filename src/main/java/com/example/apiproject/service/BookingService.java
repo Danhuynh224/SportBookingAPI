@@ -39,6 +39,10 @@ public class BookingService {
         return bookingRepository.save(saveBooking);
     }
 
+    public List<Booking> getBookingsByUserId(Long userId) {
+        return bookingRepository.findByUser_UserId(userId);
+    }
+
 
     public List<Booking> getBookingsByDate(LocalDate startDate, LocalDate endDate) {
         return bookingRepository.findByBookingDateBetween(startDate, endDate);
