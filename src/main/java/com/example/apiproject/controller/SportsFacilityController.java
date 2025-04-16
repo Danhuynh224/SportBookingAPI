@@ -65,4 +65,14 @@ public class SportsFacilityController {
         }
         return ResponseEntity.ok(facilities);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SportsFacility> getSportsFacilityById(@PathVariable("id") Long id) {
+        SportsFacility sportsFacility = sportsFacilityService.getSportsFacilityById(id);
+        if (sportsFacility == null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(sportsFacility);
+    }
+
 }

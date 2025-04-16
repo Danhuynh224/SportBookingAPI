@@ -25,6 +25,10 @@ public class SportsFacilityService {
         return sportsFacilityRepository.findAll();
     }
 
+    public SportsFacility getSportsFacilityById(Long id) {
+        return sportsFacilityRepository.findBySportsFacilityId(id);
+    }
+
     // Lấy danh sách các sân được xây dựng thêm các đây 7 ngày
     public List<SportsFacility> findAllRecentFacility() {
         LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);

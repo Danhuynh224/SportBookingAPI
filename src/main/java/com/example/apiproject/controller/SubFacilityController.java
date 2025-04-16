@@ -17,7 +17,6 @@ public class SubFacilityController {
     @Autowired
     SubFacilityService subFacilityService;
 
-
     @GetMapping(params = "faId")
     public ResponseEntity<List<SubFacilityDTO>> getSubFacilitiesByFaID(@RequestParam("faId") Long faID) {
         List<SubFacilityDTO> subFacilities = subFacilityService.getSubFacilitiesByFaID(faID);
