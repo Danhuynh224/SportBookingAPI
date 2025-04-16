@@ -1,6 +1,7 @@
 package com.example.apiproject.repository;
 
 import com.example.apiproject.entity.Account;
+import com.example.apiproject.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,5 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, String> {
 
     Optional<Account> findByUsername(String username);
+    Account findByUser(User user);
 }
