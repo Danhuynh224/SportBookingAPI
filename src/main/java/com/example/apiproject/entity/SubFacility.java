@@ -23,7 +23,6 @@ public class SubFacility {
     @Column(nullable = false)
     private String name;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sports_facility_id", nullable = false)
     private SportsFacility sportsFacility; // Thuộc một khu thể thao
@@ -31,7 +30,6 @@ public class SubFacility {
     @ManyToOne
     @JoinColumn(name = "facility_type_id", nullable = false)
     private FacilityType facilityType; // Thuộc loại sân nào (Cầu lông, Tennis, ...)
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "subFacility", cascade = CascadeType.ALL, orphanRemoval = true)
