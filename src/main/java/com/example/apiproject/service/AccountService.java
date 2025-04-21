@@ -20,6 +20,7 @@ public class AccountService{
     @Autowired
     private AccountRepository accountRepository;
 
+
     @Autowired
     private UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -50,5 +51,12 @@ public class AccountService{
         userRepository.save(account.getUser());
         return accountRepository.save(account);
     }
+     public void upDate(Account account) {
+        Account updateAccount = new Account();
+        updateAccount.setPassword(passwordEncoder.encode(account.getPassword()));
+        updateAccount.setUsername(account.getUsername());
+        updateAccount.setUser(userRepository.findUserByAccountUsername(account.getUsername()));
+        accountRepository.save(updateAccount);
+     }
 }
 
