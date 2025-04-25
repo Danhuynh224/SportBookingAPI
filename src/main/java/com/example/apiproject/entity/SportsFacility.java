@@ -1,7 +1,9 @@
 package com.example.apiproject.entity;
 
 import com.example.apiproject.enums.FacilityStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,7 +42,7 @@ public class SportsFacility {
     @OneToMany(mappedBy = "sportsFacility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubFacility> subFacilities = new ArrayList<>();
 
-    @JsonIgnore
+    @JsonManagedReference
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
@@ -50,4 +52,7 @@ public class SportsFacility {
 
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Price> prices = new ArrayList<>();
+
+
+
 }

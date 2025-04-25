@@ -1,5 +1,6 @@
 package com.example.apiproject.repository;
 
+import com.example.apiproject.dto.ReviewRequest;
 import com.example.apiproject.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     // Tính trung bình rating của một facility
     @Query("SELECT COALESCE(AVG(r.rating), 0) FROM Review r WHERE r.facility.sportsFacilityId = :facilityId")
     Double findAverageRatingByFacility(@Param("facilityId") Long facility);
+
+    Review save(ReviewRequest reviewRequest);
 }
 
 
