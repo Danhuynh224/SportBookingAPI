@@ -36,7 +36,29 @@ public class BookingService {
             bookingInfo.setBooking(saveBooking);
         }
         saveBooking.setBookingInfos(bookingInfos);
-        return bookingRepository.save(saveBooking);
+        if(checkCanBook(booking)) {
+            return bookingRepository.save(saveBooking);
+        }
+        return null;
+    }
+
+    private boolean checkCanBook(Booking booking) {
+        List<Booking> bookingChecks = bookingRepository.findBookingByBookingDate(booking.getBookingDate());
+
+        List<BookingInfo> bookingInfos = booking.getBookingInfos();
+        for(Booking bookingCheck : bookingChecks){
+            List<BookingInfo> bookingInfosCheck = bookingCheck.getBookingInfos();
+            for(BookingInfo bookingInfoCheck : bookingInfosCheck){
+                for(BookingInfo bookingInfo :bookingInfos){
+                    if(bookingInfo.getSubFacility().getSubFacilityId() == bookingInfoCheck.getSubFacility().getSubFacilityId()
+                    && (bookingInfo.getStartTime().isAfter(bookingInfoCheck.getStartTime()) || bookingInfo.getStartTime().equals(bookingInfoCheck.getStartTime()))
+                    && (bookingInfo.getEndTime().isBefore(bookingInfoCheck.getEndTime()) || bookingInfo.getEndTime().equals(bookingInfoCheck.getEndTime()))){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public List<Booking> getBookingsByUserId(Long userId) {
@@ -52,4 +74,25 @@ public class BookingService {
         return bookingRepository.findByBookingDateAndBookingInfosSubFacilityFacilityTypeFacilityTypeIdAndBookingInfosSubFacilitySubFacilityId(bookingDate,facilityTypeId,subFacilityId);
     }
 
+    public Booking updateBookingStatus(Long bookingId) {
+        // Fetch the booking by ID
+        Booking booking = bookingRepository.findById(bookingId).orElse(null);
+
+        if (booking != null) {
+            // Update the status of the booking
+            booking.setStatus(BookingStatus.COMPLETED);
+            return bookingRepository.save(booking);
+        }
+        return null; // Return null if the booking is not found
+    }
+
+
+    public boolean deleteBooking(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId).orElse(null);
+        if (booking != null) {
+            bookingRepository.delete(booking);
+            return true; // Deletion was successful
+        }
+        return false; // Booking not found
+    }
 }

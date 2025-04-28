@@ -56,6 +56,9 @@ public class BookingController {
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         System.out.println("Received booking: " + booking); // Log booking
         Booking savedBooking = bookingService.addBooking(booking);
+        if(savedBooking == null) {
+            return ResponseEntity.noContent().build();
+        }
         return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
     }
 
@@ -77,4 +80,23 @@ public class BookingController {
         return ResponseEntity.ok(bookings);
     }
 
+    @PutMapping("/{bookingId}/updateStatus")
+    public ResponseEntity<Booking> updateBookingStatus(@PathVariable Long bookingId) {
+        Booking updatedBooking = bookingService.updateBookingStatus(bookingId);
+        if (updatedBooking != null) {
+            return ResponseEntity.ok(updatedBooking);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("delete/{bookingId}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long bookingId) {
+        boolean isDeleted = bookingService.deleteBooking(bookingId);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build(); // 204 No Content response
+        } else {
+            return ResponseEntity.notFound().build(); // 404 Not Found if booking doesn't exist
+        }
+    }
 }
