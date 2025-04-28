@@ -33,6 +33,20 @@ public class SportsFacilityController {
         return ResponseEntity.ok(facilities);
     }
 
+    // Lấy danh sách các sân ở gần
+    @GetMapping("/nearby")
+    public ResponseEntity<List<SportsFacility>> getSportFacilityNearMe(
+            @RequestParam double latitude,
+            @RequestParam double longitude) {
+
+        List<SportsFacility> facilities = sportsFacilityService.findNearbyFacilities(latitude, longitude);
+        if (facilities.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(facilities);
+    }
+
+
     // API lấy danh sách sân xây 7 ngày trước
     @GetMapping("/recent")
     public ResponseEntity<List<SportsFacility>> getRecentFacility() {

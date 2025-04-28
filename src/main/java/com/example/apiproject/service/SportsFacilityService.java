@@ -70,4 +70,35 @@ public class SportsFacilityService {
         return filteredFacilities;
     }
 
+
+    public List<SportsFacility> findNearbyFacilities(double userLatitude, double userLongitude) {
+        List<SportsFacility> facilities = getAllSportsFacility(); // gọi hàm có sẵn để lấy tất cả sân
+
+        return facilities.stream()
+                .filter(facility -> facility.getLatitude() != 0 && facility.getLongitude() != 0)
+                .sorted((f1, f2) -> {
+                    double distance1 = calculateDistance(userLatitude, userLongitude, f1.getLatitude(), f1.getLongitude());
+                    double distance2 = calculateDistance(userLatitude, userLongitude, f2.getLatitude(), f2.getLongitude());
+                    return Double.compare(distance1, distance2); // Sắp xếp gần → xa
+                })
+                .collect(Collectors.toList());
+    }
+
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int EARTH_RADIUS = 6371; // Bán kính Trái Đất (km)
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return EARTH_RADIUS * c; // Khoảng cách tính bằng km
+    }
+
+
+
 }
