@@ -20,4 +20,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             @Param("facilityTypeId") Long facilityTypeId,
             @Param("subFacilityId") Long subFacilityId);
 
+    List<Booking> findBookingByBookingDate(LocalDate bookingDate);
+
 }

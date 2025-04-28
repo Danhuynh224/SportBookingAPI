@@ -1,6 +1,7 @@
 package com.example.apiproject.entity;
 
 import com.example.apiproject.enums.BookingStatus;
+import com.example.apiproject.enums.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,5 +47,10 @@ public class Booking {
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     private String note;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingStatus status = BookingStatus.PENDING;
+
 
 }
