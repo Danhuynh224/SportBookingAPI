@@ -1,5 +1,6 @@
 package com.example.apiproject.service;
 
+import com.example.apiproject.entity.Review;
 import com.example.apiproject.entity.SportsFacility;
 import com.example.apiproject.entity.SubFacility;
 import com.example.apiproject.repository.SportsFacilityRepository;
@@ -59,16 +60,25 @@ public class SportsFacilityService {
     }
 
 
-    public List<SportsFacility> filterFacilities(List<String> types, String address, BigDecimal minPrice, BigDecimal maxPrice) {
+    public List<SportsFacility> filterFacilities(List<String> types, String address, int minRating) {
         List<SportsFacility> filteredFacilities = sportsFacilityRepository.findAll().stream()
-                .filter(facility -> (types == null || facility.getPrices().stream().anyMatch(price -> types.contains(price.getFacilityType().getName()))))
-                .filter(facility -> (address == null || facility.getAddress().toLowerCase().contains(address.toLowerCase())))
-                .filter(facility -> (minPrice == null || facility.getPrices().stream().anyMatch(price -> price.getDayTime().compareTo(minPrice) >= 0)))
-                .filter(facility -> (maxPrice == null || facility.getPrices().stream().anyMatch(price -> price.getDayTime().compareTo(maxPrice) <= 0)))
+                .filter(facility ->
+                        (types == null || facility.getPrices().stream()
+                                .anyMatch(price -> types.contains(price.getFacilityType().getName()))))
+                .filter(facility ->
+                        (address == null || facility.getAddress().toLowerCase().contains(address.toLowerCase())))
+                .filter(facility -> {
+                    if (minRating == 0) return true;
+                    List<Review> reviews = facility.getReviews(); // cần có getter
+                    if (reviews == null || reviews.isEmpty()) return false;
+                    double avgRating = reviews.stream().mapToInt(Review::getRating).average().orElse(0);
+                    return avgRating >= minRating;
+                })
                 .toList();
 
         return filteredFacilities;
     }
+
 
 
     public List<SportsFacility> findNearbyFacilities(double userLatitude, double userLongitude) {
