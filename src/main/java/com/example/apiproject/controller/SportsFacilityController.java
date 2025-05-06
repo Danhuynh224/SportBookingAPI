@@ -70,15 +70,15 @@ public class SportsFacilityController {
     public ResponseEntity<List<SportsFacility>> filterSportsFacilities(
             @RequestParam(required = false) List<String> types,
             @RequestParam(required = false) String address,
-            @RequestParam(required = false) BigDecimal minPrice,
-            @RequestParam(required = false) BigDecimal maxPrice) {
+            @RequestParam(required = false) int minRating) {
 
-        List<SportsFacility> facilities = sportsFacilityService.filterFacilities(types, address, minPrice, maxPrice);
+        List<SportsFacility> facilities = sportsFacilityService.filterFacilities(types, address, minRating);
         if (facilities.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(facilities);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<SportsFacility> getSportsFacilityById(@PathVariable("id") Long id) {
