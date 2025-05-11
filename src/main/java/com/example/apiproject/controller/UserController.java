@@ -5,10 +5,7 @@ import com.example.apiproject.entity.User;
 import com.example.apiproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
 @RestController
@@ -24,5 +21,14 @@ public class UserController {
             return ResponseEntity.ok("Cập nhật thành công");
         }
         return 	ResponseEntity.badRequest().body("Cập nhật thất bại");
+    }
+
+    @GetMapping("/getUserByMail")
+    public ResponseEntity<?> getUserByMail(@RequestParam("mail") String mail) {
+        User user = userService.getUserByMail(mail);
+        if(user != null) {
+            return ResponseEntity.ok(user);
+        }
+        return 	ResponseEntity.badRequest().body("Không tìm thấy");
     }
 }

@@ -22,19 +22,6 @@ public class CorsConfig {
             }
         };
     }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(CsrfConfigurer::disable) // Cú pháp mới để disable CSRF
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Cho phép tất cả các endpoint
-                );
 
-        return http.build();
-    }
 }
 
