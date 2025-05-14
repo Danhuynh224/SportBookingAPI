@@ -25,12 +25,12 @@ public class SportsFacilityController {
 
     // API lấy danh sách tất cả các sân
     @GetMapping
-    public ResponseEntity<List<SportsFacility>> getAllSportsFacilities() {
+    public List<SportsFacility> getAllSportsFacilities() {
         List<SportsFacility> facilities = sportsFacilityService.getAllSportsFacility();
         if (facilities.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            return facilities;
         }
-        return ResponseEntity.ok(facilities);
+        return facilities;
     }
 
     // Lấy danh sách các sân ở gần
