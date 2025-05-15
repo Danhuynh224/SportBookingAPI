@@ -51,7 +51,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Tắt CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/sportsfacilities/**", "/subfacilities","/post").permitAll()  // Cho phép tất cả yêu cầu đến /auth/login
+                        .requestMatchers("/auth/**", "/sportsfacilities/**", "/subfacilities/**","/post/**").permitAll()  // Cho phép tất cả yêu cầu đến /auth/login
                         .anyRequest().authenticated()  // Yêu cầu xác thực cho các yêu cầu khác
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Không dùng session
