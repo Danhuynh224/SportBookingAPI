@@ -283,7 +283,3 @@ Parameters:
 422 - Unprocessable Entity → Dữ liệu không hợp lệ
 500 - Server Error         → Lỗi server
 ```
-
-## 🔒 License
-
-[MIT License](LICENSE)
